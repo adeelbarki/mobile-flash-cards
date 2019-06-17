@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import MainNavigator from './components/Tabs'
 import MobileStatusBar from './components/Statusbar'
-import DeckView from './components/DeckView'
 import { purple } from './utils/colors'
 
 class App extends Component {
@@ -15,7 +14,6 @@ class App extends Component {
         <View style={{ flex: 1 }}>
           <MobileStatusBar backgroundColor={purple} barStyle='light-content' />
           <MainNavigator />
-          <DeckView />
         </View>
       </Provider>
     );

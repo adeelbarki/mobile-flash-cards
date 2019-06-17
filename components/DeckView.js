@@ -1,54 +1,31 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Platform, StyleSheet } from 'react-native'
-import { NavigationActions } from 'react-navigation'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, Button } from 'react-native'
+import { connect } from 'react-redux'
 import { white, purple, gray } from '../utils/colors'
-
-function AddCardBtn({ onPress }) {
-    return (
-        <TouchableOpacity 
-            style={[Platform.OS ==='ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, {backgroundColor: white}]}
-            onPress={onPress}>
-            <Text style={[styles.submitBtnText, {color: gray}]}>Add Card</Text>
-        </TouchableOpacity>
-    )
-}
-function QuizBtn({ onPress }) {
-    return (
-        <TouchableOpacity 
-            style={[Platform.OS ==='ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, {backgroundColor: purple}]}
-            onPress={onPress}>
-            <Text style={[styles.submitBtnText, {color: white}]}>Start Quiz</Text>
-        </TouchableOpacity>
-    )
-}
-
 
 
 class DeckView extends Component {
 
-    toAddCard = () => {
-        this.props.navigation.dispatch(NavigationActions.back({
-            key: 'AddCard'
-        }))
-    }
-
-    takeQuiz = () => {
-        this.props.navigation.dispatch(NavigationActions.back({
-            key: 'QuizView'
-        }))
-    }
-
     render() {
         return (
             <View style={styles.container}>
-                <AddCardBtn onPress={null} />
-                <QuizBtn onPress={null} />
+                <Text>Deck</Text>
+                <TouchableOpacity
+                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
+                    onPress={() => this.props.navigation.navigate('AddCard')}>
+                    <Text style={[styles.submitBtnText, { color: gray }]}>Add Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
+                    onPress={() => this.props.navigation.navigate('QuizView')}>
+                    <Text style={[styles.submitBtnText, { color: white }]}>Start Quiz</Text>
+                </TouchableOpacity>
             </View>
         )
     }
 }
 
-const styles=StyleSheet.create({
+const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
@@ -82,5 +59,5 @@ const styles=StyleSheet.create({
 
 
 
-export default DeckView
+export default connect()(DeckView)
 
