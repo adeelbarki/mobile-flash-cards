@@ -1,20 +1,15 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import Dashboard from './components/Dashboard'
+import MainNavigator from './components/Tabs'
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Dashboard />
-    </View>
-  );
+class App extends Component {
+  render() {
+    return (
+      <View style={{ flex: 1 }}>
+        <MainNavigator />
+      </View>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App
