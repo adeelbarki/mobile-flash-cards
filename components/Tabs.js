@@ -11,6 +11,8 @@ import { purple, white } from '../utils/colors'
 import Dashboard from './Dashboard'
 import NewDeck from './NewDeck'
 import DeckView from './DeckView'
+import AddCard from './AddCard'
+import QuizView from './QuizView';
 
 
   const router = {
@@ -87,7 +89,25 @@ import DeckView from './DeckView'
                 backgroundColor: purple,
               }
             }
-          }
+          },
+          AddCard: {
+            screen: AddCard,
+            navigationOptions: {
+              headerTintColor: white,
+              headerStyle: {
+                backgroundColor: purple,
+              }
+            }
+          },
+          QuizView: {
+            screen: QuizView,
+            navigationOptions: {
+              headerTintColor: white,
+              headerStyle: {
+                backgroundColor: purple,
+              }
+            }
+          },
         })
   
   export default createAppContainer(MainNavigator);
