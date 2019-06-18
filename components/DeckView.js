@@ -5,11 +5,16 @@ import { white, purple, gray } from '../utils/colors'
 
 
 class DeckView extends Component {
+    static navigationOptions = ({ navigation }) => {
+        return {
+            title: 'Deck'
+        }
+    
+    }
 
     render() {
         return (
             <View style={styles.container}>
-                <Text>Deck</Text>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
                     onPress={() => this.props.navigation.navigate('AddCard')}>
