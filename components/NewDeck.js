@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native'
 import { connect } from 'react-redux'
-import { saveDeckTitle, getDecks } from '../utils/api'
+import { saveDeckTitle } from '../utils/api'
 import { addDeck } from '../actions'
 import { white, purple } from '../utils/colors'
 
@@ -26,8 +26,9 @@ class NewDeck extends Component {
         dispatch(addDeck(title))
 
         navigation.navigate('Dashboard')
-         
 
+        this.setState({ title: ''})
+         
     }
 
     render() {

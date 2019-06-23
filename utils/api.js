@@ -30,11 +30,12 @@ const initialData = {
     }
 }
 
-export function getDecks() {
-    AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-    return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
-        return JSON.parse(result)
-    })
+export const getInitialData = () => {
+    // AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+    // return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
+    //     return JSON.parse(result)
+    // })
+    return initialData
 }
 
 export function saveDeckTitle(title) {
@@ -44,4 +45,18 @@ export function saveDeckTitle(title) {
             questions: []
         }
     }))
+}
+
+export function getDecks (deck) {
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+        .then(results => {
+            if(results === null) {
+                AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.parse(getinitialData))
+                return getInitialData
+            }
+            else {
+                return JSON.parse(results)
+            }
+            }
+        )
 }

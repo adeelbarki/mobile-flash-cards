@@ -1,28 +1,21 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, Platform, StyleSheet, AsyncStorage, ScrollView } from 'react-native'
-import { getDecks } from '../utils/api'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, ScrollView } from 'react-native'
+import { getInitialData, getDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
 import { white, purple, gray } from '../utils/colors'
 
 class Dashboard extends Component {
 
-    state = {
-        decks: {}
-    }
-
     componentDidMount() {
-        this.getAllDecks()
-    }
-
-    getAllDecks = () => {
-        getDecks().then((decks) => this.setState({ decks }))
+        getDecks()
+            .then(decks => this.props.receiveAllDecks(decks))
     }
 
 
     render() {
-        const { decks } = this.state
+        const { decks }=  this.props
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -30,7 +23,7 @@ class Dashboard extends Component {
                         const { title, questions } = decks[key]
                         return (
                             <View key={key}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView', {entryId:decks[key]})}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView', {entryId:key})}>
                                     <Text style={[styles.item, { fontSize: 40 }]}>{title}</Text>
                                     <Text style={[styles.item, { fontSize: 18, color: gray }]}>{questions.length} cards</Text>
                                 </TouchableOpacity>
@@ -56,8 +49,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         flex: 1,
         justifyContent: 'center',
-
-
     },
     item: {
         backgroundColor: white,
@@ -75,4 +66,16 @@ const styles = StyleSheet.create({
 })
 
 
-export default Dashboard
+function mapStateToProps(decks) {
+    return {
+        decks
+    }
+}
+
+function mapDispatchToProps( dispatch ) {
+    return {
+        receiveAllDecks: (decks) => dispatch(receiveDecks(decks))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)

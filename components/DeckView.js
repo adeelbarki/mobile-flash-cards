@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Platform, StyleSheet, Button } from 'react-native'
 import { connect } from 'react-redux'
-import { getDecks } from '../utils/api'
+import { getInitialData } from '../utils/api'
 import { white, purple, gray } from '../utils/colors'
 
 
@@ -15,12 +15,12 @@ class DeckView extends Component {
 
     render() {
         const deck = this.props.navigation.state.params.entryId
-        const { title, questions } = deck
+        const { decks } = this.props 
 
         return (
             <View style={styles.container}>
-                <Text style={[styles.item, { fontSize: 40 }]}>{title}</Text>
-                <Text style={[styles.item, { fontSize: 18, color: gray }]}>{questions.length} cards</Text>
+                <Text style={[styles.item, { fontSize: 40 }]}>{decks[deck].title}</Text>
+                <Text style={[styles.item, { fontSize: 18, color: gray }]}>{decks[deck].questions.length} cards</Text>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
                     onPress={() => this.props.navigation.navigate('AddCard')}>
@@ -83,6 +83,11 @@ const styles = StyleSheet.create({
 })
 
 
+function mapStateToProps(decks) {
+    return {
+        decks
+    }
+}
 
-export default connect()(DeckView)
+export default connect(mapStateToProps)(DeckView)
 
