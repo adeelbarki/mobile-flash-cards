@@ -10,7 +10,7 @@ class NewDeck extends Component {
                 <TextInput placeholder="New Deck" style={styles.input} />
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                    onPress={null}>
+                    onPress={() => this.props.navigation.navigate('DeckView')}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Add New Deck</Text>
                 </TouchableOpacity>
             </View>

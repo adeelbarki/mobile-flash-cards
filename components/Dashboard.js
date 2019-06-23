@@ -1,29 +1,69 @@
+
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Platform, StyleSheet } from 'react-native'
-import { white, purple } from '../utils/colors'
+import { connect } from 'react-redux'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, AsyncStorage, ScrollView } from 'react-native'
+import { getDecks } from '../utils/api'
+import { receiveDecks } from '../actions'
+import { white, purple, gray } from '../utils/colors'
 
 class Dashboard extends Component {
+
+    state = {
+        decks: {}
+    }
+
+    componentDidMount() {
+        this.getAllDecks()
+    }
+
+    getAllDecks = () => {
+        getDecks().then((decks) => this.setState({ decks }))
+    }
+
+
     render() {
+        const decks = this.state.decks
         return (
-            <View>
-                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView')}>
-                    <Text style={[styles.item, {fontSize: 20}]}>DeckView 1</Text>
-                    <Text style={[styles.item, {fontSize: 20}]}>DeckView 2</Text>
-                </TouchableOpacity>
+            <View style={styles.container}>
+                <ScrollView>
+                    {Object.keys(decks).map((key) => {
+                        const { title, questions } = decks[key]
+                        return (
+                            <View key={key}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView')}>
+                                    <Text style={[styles.item, { fontSize: 40 }]}>{title}</Text>
+                                    <Text style={[styles.item, { fontSize: 18, color: gray }]}>{questions.length} cards</Text>
+                                </TouchableOpacity>
+                            </View>
+                        )
+                    })
+                    }
+                </ScrollView>
             </View>
         )
     }
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        backgroundColor: white,
+    },
+    row: {
+        flexDirection: 'row',
+        flex: 1,
+        justifyContent: 'center',
+
+
+    },
     item: {
         backgroundColor: white,
         borderRadius: Platform.OS === 'ios' ? 16 : 2,
-        padding: 20,
-        marginLeft: 10,
-        marginRight: 10,
-        marginTop: 17,
         justifyContent: 'center',
+        alignItems: 'center',
         shadowRadius: 3,
         shadowOpacity: 0.8,
         shadowColor: 'rgba(0,0,0,0.24)',
@@ -33,5 +73,6 @@ const styles = StyleSheet.create({
         }
     },
 })
+
 
 export default Dashboard

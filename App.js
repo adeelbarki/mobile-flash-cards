@@ -7,7 +7,9 @@ import MainNavigator from './components/Tabs'
 import MobileStatusBar from './components/Statusbar'
 import { purple } from './utils/colors'
 
+
 class App extends Component {
+
   render() {
     return (
       <Provider store={createStore(reducer)}>
