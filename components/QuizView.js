@@ -10,9 +10,15 @@ class QuizView extends Component {
     
     }
     render() {
+        const deck = this.props.navigation.state.params.entryId
+        const { questions } = deck
+        
         return (
             <View style={styles.container}>
-                <Text style={styles.text}>Sample question Test</Text>
+                {questions.map((questions, key) => 
+                    <Text key={key}>{questions.question} {questions.answer}</Text>           
+                    )}
+                {/* <Text style={styles.text}>Sample question Test</Text> */}
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
                     onPress={null}>

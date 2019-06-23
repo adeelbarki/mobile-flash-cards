@@ -1,16 +1,48 @@
 import React, { Component } from 'react'
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { connect } from 'react-redux'
+import { saveDeckTitle, getDecks } from '../utils/api'
+import { addDeck } from '../actions'
 import { white, purple } from '../utils/colors'
 
 class NewDeck extends Component {
+    state = {
+        title: ''
+    }
+
+    handleChange = (title) => {
+        console.log(title)
+        this.setState({
+            title: title
+        })
+    }
+
+    submit = () => {
+        const { title } = this.state
+        const { dispatch, navigation } = this.props
+
+        saveDeckTitle(title)
+
+        dispatch(addDeck(title))
+
+        navigation.navigate('Dashboard')
+         
+
+    }
+
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>What is the title of your new Deck?</Text>
-                <TextInput placeholder="New Deck" style={styles.input} />
+                <TextInput 
+                    placeholder="New Deck" 
+                    style={styles.input} 
+                    value={this.state.title}
+                    onChangeText={(title) => this.setState({title: title})}
+                />
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                    onPress={() => this.props.navigation.navigate('DeckView')}>
+                    onPress={this.submit}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Add New Deck</Text>
                 </TouchableOpacity>
             </View>
@@ -64,4 +96,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default NewDeck
+export default connect()(NewDeck)

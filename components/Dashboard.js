@@ -22,7 +22,7 @@ class Dashboard extends Component {
 
 
     render() {
-        const decks = this.state.decks
+        const { decks } = this.state
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -30,7 +30,7 @@ class Dashboard extends Component {
                         const { title, questions } = decks[key]
                         return (
                             <View key={key}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView')}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView', {entryId:decks[key]})}>
                                     <Text style={[styles.item, { fontSize: 40 }]}>{title}</Text>
                                     <Text style={[styles.item, { fontSize: 18, color: gray }]}>{questions.length} cards</Text>
                                 </TouchableOpacity>

@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import MainNavigator from './components/Tabs'
 import MobileStatusBar from './components/Statusbar'
+import { getDecks } from './utils/api'
 import { purple } from './utils/colors'
 
 

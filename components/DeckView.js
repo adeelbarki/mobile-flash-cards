@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, Platform, StyleSheet, Button } from 'react-native'
 import { connect } from 'react-redux'
+import { getDecks } from '../utils/api'
 import { white, purple, gray } from '../utils/colors'
 
 
@@ -9,12 +10,17 @@ class DeckView extends Component {
         return {
             title: 'Deck'
         }
-    
+
     }
 
     render() {
+        const deck = this.props.navigation.state.params.entryId
+        const { title, questions } = deck
+
         return (
             <View style={styles.container}>
+                <Text style={[styles.item, { fontSize: 40 }]}>{title}</Text>
+                <Text style={[styles.item, { fontSize: 18, color: gray }]}>{questions.length} cards</Text>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
                     onPress={() => this.props.navigation.navigate('AddCard')}>
@@ -22,7 +28,7 @@ class DeckView extends Component {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                    onPress={() => this.props.navigation.navigate('QuizView')}>
+                    onPress={() => this.props.navigation.navigate('QuizView', { entryId: deck })}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Start Quiz</Text>
                 </TouchableOpacity>
             </View>
@@ -33,8 +39,22 @@ class DeckView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
         padding: 20,
         backgroundColor: white,
+    },
+    item: {
+        backgroundColor: white,
+        borderRadius: Platform.OS === 'ios' ? 16 : 2,
+        justifyContent: 'center',
+        alignItems: 'center',
+        shadowRadius: 3,
+        shadowOpacity: 0.8,
+        shadowColor: 'rgba(0,0,0,0.24)',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        }
     },
     iosSubmitBtn: {
         padding: 10,
