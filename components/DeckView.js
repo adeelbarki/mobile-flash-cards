@@ -23,7 +23,7 @@ class DeckView extends Component {
                 <Text style={[styles.item, { fontSize: 18, color: gray }]}>{decks[deck].questions.length} cards</Text>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
-                    onPress={() => this.props.navigation.navigate('AddCard')}>
+                    onPress={() => this.props.navigation.navigate('AddCard', { entryId: deck })}>
                     <Text style={[styles.submitBtnText, { color: gray }]}>Add Card</Text>
                 </TouchableOpacity>
                 <TouchableOpacity

@@ -10,12 +10,12 @@ class NewDeck extends Component {
         title: ''
     }
 
-    handleChange = (title) => {
-        console.log(title)
-        this.setState({
-            title: title
-        })
-    }
+    // handleChange = (title) => {
+    //     console.log(title)
+    //     this.setState({
+    //         title: title
+    //     })
+    // }
 
     submit = () => {
         const { title } = this.state

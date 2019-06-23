@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { View, Text, TextInput, StyleSheet, Platform, TouchableOpacity } from 'react-native'
+import { NavigationActions } from 'react-navigation'
+import { addCard } from '../actions'
+import { addCardToDeck } from '../utils/api'
 import { white, purple } from '../utils/colors'
 class AddCard extends Component {
     static navigationOptions = ({ navigation }) => {
@@ -8,14 +12,56 @@ class AddCard extends Component {
         }
     
     }
+
+    state = {
+        question: '',
+        answer: '',
+        isCorrect: ''
+    }
+
+    submit = (title) => {
+        const { question, answer, isCorrect } = this.state
+        const { dispatch, navigation } = this.props
+        
+        dispatch(addCard({ question, answer, isCorrect, title }))
+        addCardToDeck(title, { question, answer, isCorrect })
+        this.setState({
+            question: '',
+            answer: '',
+            isCorrect: ''
+        })
+
+        navigation.dispatch(NavigationActions.back({ key: null}))
+    }
+
+
     render() {
+        const title = this.props.navigation.state.params.entryId
+        const { question, answer, isCorrect } = this.state 
+
         return (
             <View style={styles.container}>
-                <TextInput placeholder="Question" style={styles.input} />
-                <TextInput placeholder="Answer" style={styles.input}/>
+                <TextInput 
+                    placeholder="Question" 
+                    style={styles.input} 
+                    onChangeText={(question) => this.setState({question})} 
+                    value={question} 
+                />
+                <TextInput 
+                    placeholder="Answer" 
+                    style={styles.input} 
+                    onChangeText={(answer) => this.setState({answer})} 
+                    value={answer} 
+                />
+                <TextInput 
+                    placeholder="" 
+                    style={styles.input} 
+                    onChangeText={(isCorrect) => this.setState({isCorrect})} 
+                    value={isCorrect} 
+                />
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple, marginTop: 20}]}
-                    onPress={null}>
+                    onPress={() => this.submit(title)}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Add Card</Text>
                 </TouchableOpacity>
 
@@ -64,4 +110,4 @@ const styles = StyleSheet.create({
     },
 })
 
-export default AddCard
+export default connect()(AddCard)

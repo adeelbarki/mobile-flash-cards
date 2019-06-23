@@ -60,3 +60,12 @@ export function getDecks (deck) {
             }
         )
 }
+
+export function addCardToDeck(title, card) {
+    return AsyncStorage.getItem(DECKS_STORAGE_KEY)
+        .then(results => JSON.parse(results))
+            .then(results => {
+                results[title].questions.push(card)
+                AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(results))
+            })
+}
