@@ -31,7 +31,7 @@ Browser will open a localhost screen. In Bottom left corner, make sure connectio
 barcode from expo app on mobile. It can take some time to download bundle.
 
 __(Note: In some system, LAN connection does not work due to bigger network address. The issue can be resolved in hardware network properties. Goto 
-WIFI adpater options. Right Click on your connected network and goto properties. In IPv$ goto advanced and uncheck automatic metric and write 10 in interface metric. Click ok and restart your app using yarn start in terminal.)__
+WIFI adpater options. Right Click on your connected network and goto properties. In IPv4 goto advanced and uncheck automatic metric and write 10 in interface metric. Click ok and restart your app using yarn start in terminal.)__
 
 ## Testing
 
@@ -46,4 +46,5 @@ Project mobile-flash-cards is a part of React Nanodegree Program at [Udactiy](ht
 * Adeel Ahmed Khan (Adeel Barki) <br />
   __ _Full Stack Web Developer_ <br />
   _Front End Web Developer_ <br />
-  _React Web Developer_ __ <br />
+  _React Web Developer_ <br />
+  _DevOps Engineer_ __ <br />
