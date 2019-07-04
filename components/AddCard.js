@@ -54,7 +54,7 @@ class AddCard extends Component {
                     value={answer} 
                 />
                 <TextInput 
-                    placeholder="" 
+                    placeholder="true / false" 
                     style={styles.input} 
                     onChangeText={(isCorrect) => this.setState({isCorrect})} 
                     value={isCorrect} 

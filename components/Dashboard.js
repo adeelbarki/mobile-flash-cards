@@ -15,17 +15,17 @@ class Dashboard extends Component {
 
 
     render() {
-        const { decks }=  this.props
+        const { decks } = this.props
         return (
             <View style={styles.container}>
                 <ScrollView>
                     {Object.keys(decks).map((key) => {
                         const { title, questions } = decks[key]
                         return (
-                            <View key={key}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView', {entryId:key})}>
-                                    <Text style={[styles.item, { fontSize: 40 }]}>{title}</Text>
-                                    <Text style={[styles.item, { fontSize: 18, color: gray }]}>{questions.length} cards</Text>
+                            <View key={key} style={styles.row}>
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView', { entryId: key })}>
+                                    <Text style={{ fontSize: 40 }}>{title}</Text>
+                                    <Text style={{ fontSize: 18, color: gray, textAlign: 'center' }}>{questions.length} cards</Text>
                                 </TouchableOpacity>
                             </View>
                         )
@@ -40,28 +40,39 @@ class Dashboard extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+        alignSelf: 'stretch',
         padding: 10,
         backgroundColor: white,
     },
     row: {
-        flexDirection: 'row',
         flex: 1,
-        justifyContent: 'center',
-    },
-    item: {
         backgroundColor: white,
-        borderRadius: Platform.OS === 'ios' ? 16 : 2,
         justifyContent: 'center',
         alignItems: 'center',
+        padding: 20,
+        margin: 20,
+        height: 200,
+        width: 400,
+        borderRadius: Platform.OS === 'ios' ? 16 : 2,
+        borderColor: gray,
+        shadowColor: 'rgba(0,0,0,0.24)',
+        shadowOffset: {
+            width: 0,
+            height: 3,
+        },
+        shadowRadius: 4,
+        shadowOpacity: 0.8,
+
+    },
+    item: {
+        borderRadius: Platform.OS === 'ios' ? 16 : 2,
         shadowRadius: 3,
         shadowOpacity: 0.8,
         shadowColor: 'rgba(0,0,0,0.24)',
         shadowOffset: {
             width: 0,
             height: 3,
-        }
+        },
     },
 })
 
@@ -72,7 +83,7 @@ function mapStateToProps(decks) {
     }
 }
 
-function mapDispatchToProps( dispatch ) {
+function mapDispatchToProps(dispatch) {
     return {
         receiveAllDecks: (decks) => dispatch(receiveDecks(decks))
     }
