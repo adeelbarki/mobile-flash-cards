@@ -57,6 +57,15 @@ class QuizView extends Component {
         })
     }
 
+    restartQuiz = () => {
+        this.setState({
+            activeQuestion: 0,
+            showQuestion: false,
+            correct: 0,
+            incorrect: 0,
+        })
+    }
+
     render() {
         const { decks, navigation } = this.props
         const { activeQuestion, showQuestion } = this.state
@@ -74,13 +83,13 @@ class QuizView extends Component {
                         <Text style={{ fontSize: 40, textAlign: 'center' }}>You got {this.state.correctAnswer} out of {decks[deck].questions.length} correct </Text>
                         <TouchableOpacity
                             style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                            onPress={() => this.props.navigation.navigate('DeckView', { entryId: deck })}>
-                            <Text style={[styles.submitBtnText, { color: white }]}>Retry</Text>
+                            onPress={this.restartQuiz}>
+                            <Text style={[styles.submitBtnText, { color: white }]}>Restart Quiz</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
-                            onPress={() => this.props.navigation.navigate('Dashboard')}>
-                            <Text style={[styles.submitBtnText, { color: gray }]}>Go Back!</Text>
+                            onPress={() => this.props.navigation.navigate('DeckView')}>
+                            <Text style={[styles.submitBtnText, { color: gray }]}>Back to Deck</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -98,7 +107,7 @@ class QuizView extends Component {
                     }
 
                     {!showQuestion
-                        ? <TextButton onPress={this.toggleAnswerQuestion} style={{ fontSize: 30 }}>See Answer</TextButton>
+                        ? <TextButton onPress={this.toggleAnswerQuestion} style={{ fontSize: 30 }}>Show Answer</TextButton>
                         : <TextButton onPress={this.toggleAnswerQuestion} style={{ fontSize: 30 }}>Show Question</TextButton>
                     }
 
