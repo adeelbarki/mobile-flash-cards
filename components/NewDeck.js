@@ -25,7 +25,7 @@ class NewDeck extends Component {
 
         dispatch(addDeck(title))
 
-        navigation.navigate('Dashboard')
+        navigation.navigate('DeckView', { entryId: title })
 
         this.setState({ title: ''})
          
