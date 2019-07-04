@@ -10,7 +10,7 @@ class AddCard extends Component {
         return {
             title: 'Add Card'
         }
-    
+
     }
 
     state = {
@@ -22,45 +22,50 @@ class AddCard extends Component {
     submit = (title) => {
         const { question, answer, isCorrect } = this.state
         const { dispatch, navigation } = this.props
-        
-        dispatch(addCard({ question, answer, isCorrect, title }))
-        addCardToDeck(title, { question, answer, isCorrect })
-        this.setState({
-            question: '',
-            answer: '',
-            isCorrect: ''
-        })
 
-        navigation.dispatch(NavigationActions.back({ key: null}))
+        if (question && answer) {
+            dispatch(addCard({ question, answer, isCorrect, title }))
+            addCardToDeck(title, { question, answer, isCorrect })
+            this.setState({
+                question: '',
+                answer: '',
+                isCorrect: ''
+            })
+
+            navigation.dispatch(NavigationActions.back({ key: null }))
+        }
+
+
+
     }
 
 
     render() {
         const title = this.props.navigation.state.params.entryId
-        const { question, answer, isCorrect } = this.state 
+        const { question, answer, isCorrect } = this.state
 
         return (
             <View style={styles.container}>
-                <TextInput 
-                    placeholder="Question" 
-                    style={styles.input} 
-                    onChangeText={(question) => this.setState({question})} 
-                    value={question} 
+                <TextInput
+                    placeholder="Question"
+                    style={styles.input}
+                    onChangeText={(question) => this.setState({ question })}
+                    value={question}
                 />
-                <TextInput 
-                    placeholder="Answer" 
-                    style={styles.input} 
-                    onChangeText={(answer) => this.setState({answer})} 
-                    value={answer} 
+                <TextInput
+                    placeholder="Answer"
+                    style={styles.input}
+                    onChangeText={(answer) => this.setState({ answer })}
+                    value={answer}
                 />
-                <TextInput 
-                    placeholder="true / false" 
-                    style={styles.input} 
-                    onChangeText={(isCorrect) => this.setState({isCorrect})} 
-                    value={isCorrect} 
+                <TextInput
+                    placeholder="true / false"
+                    style={styles.input}
+                    onChangeText={(isCorrect) => this.setState({ isCorrect })}
+                    value={isCorrect}
                 />
                 <TouchableOpacity
-                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple, marginTop: 20}]}
+                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple, marginTop: 20 }]}
                     onPress={() => this.submit(title)}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Add Card</Text>
                 </TouchableOpacity>
@@ -74,7 +79,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: white, 
+        backgroundColor: white,
     },
     input: {
         backgroundColor: '#efefef',

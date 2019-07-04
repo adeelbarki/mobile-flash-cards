@@ -10,36 +10,34 @@ class NewDeck extends Component {
         title: ''
     }
 
-    // handleChange = (title) => {
-    //     console.log(title)
-    //     this.setState({
-    //         title: title
-    //     })
-    // }
 
     submit = () => {
         const { title } = this.state
         const { dispatch, navigation } = this.props
 
-        saveDeckTitle(title)
 
-        dispatch(addDeck(title))
+        if (title) {
+            saveDeckTitle(title)
 
-        navigation.navigate('DeckView', { entryId: title })
+            dispatch(addDeck(title))
 
-        this.setState({ title: ''})
-         
+            navigation.navigate('DeckView', { entryId: title })
+
+            this.setState({ title: '' })
+        }
+
+
     }
 
     render() {
         return (
             <View style={styles.container}>
                 <Text style={styles.text}>What is the title of your new Deck?</Text>
-                <TextInput 
-                    placeholder="New Deck" 
-                    style={styles.input} 
+                <TextInput
+                    placeholder="New Deck"
+                    style={styles.input}
                     value={this.state.title}
-                    onChangeText={(title) => this.setState({title: title})}
+                    onChangeText={(title) => this.setState({ title: title })}
                 />
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-        backgroundColor: white, 
+        backgroundColor: white,
     },
     text: {
         padding: 10,

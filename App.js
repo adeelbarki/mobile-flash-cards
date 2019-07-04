@@ -5,11 +5,15 @@ import { Provider } from 'react-redux'
 import reducer from './reducers'
 import MainNavigator from './components/Tabs'
 import MobileStatusBar from './components/Statusbar'
-import { getDecks } from './utils/api'
 import { purple } from './utils/colors'
+import { setLocalNotification } from './utils/helpers'
 
 
 class App extends Component {
+
+  componentDidMount() {
+    setLocalNotification()
+  }
 
   render() {
     return (
