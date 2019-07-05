@@ -19,12 +19,12 @@ export default function decks(state = {}, action) {
                 ...newDeck
             }
         case ADD_CARD:
-            const { question, answer, isCorrect, title } = action.card
+            const { question, answer, title } = action.card
             return {
                 ...state,
                 [title]: {
                     ...state[title],
-                    questions: [...state[title].questions, { question, answer, isCorrect }]
+                    questions: [...state[title].questions, { question, answer }]
                 } 
             }
         default:

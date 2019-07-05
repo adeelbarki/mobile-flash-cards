@@ -36,16 +36,12 @@ class QuizView extends Component {
     }
 
     submit = (ans) => {
-        const { decks } = this.props
-        const deck = this.props.navigation.state.params.entryId
-        const { activeQuestion } = this.state
-        const showCorrectAnswer = decks[deck].questions[activeQuestion].isCorrect.toLowerCase()
 
-        if (ans === showCorrectAnswer) {
+        if (ans === true) {
             this.setState({
                 correctAnswer: this.state.correctAnswer + 1
             })
-        } else {
+        } else if(ans === false){
             this.setState({
                 incorrectAnswer: this.state.incorrectAnswer + 1
             })
@@ -113,12 +109,12 @@ class QuizView extends Component {
                 </View>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                    onPress={() => this.submit('true')}>
+                    onPress={() => this.submit(true)}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Correct</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: red, marginTop: 10 }]}
-                    onPress={() => this.submit('false')}>
+                    onPress={() => this.submit(false)}>
                     <Text style={[styles.submitBtnText, { color: white }]}>Incorrect</Text>
                 </TouchableOpacity>
 

@@ -9,12 +9,10 @@ const initialData = {
             {
                 question: 'What is React?',
                 answer: 'A library for managing user interfaces',
-                isCorrect: 'true'
             },
             {
                 question: 'Where do you make Ajax requests in React?',
                 answer: 'The componentDidMount lifecycle event',
-                isCorrect: 'true'
             }
         ]
     },
@@ -24,17 +22,12 @@ const initialData = {
             {
                 question: 'What is a closure?',
                 answer: 'The combination of a function and the lexical environment within which that function was declared.',
-                isCorrect: 'true'
             }
         ]
     }
 }
 
 export const getInitialData = () => {
-    // AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
-    // return AsyncStorage.getItem(DECKS_STORAGE_KEY).then((result) => {
-    //     return JSON.parse(result)
-    // })
     return initialData
 }
 

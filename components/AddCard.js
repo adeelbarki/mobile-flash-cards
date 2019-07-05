@@ -16,20 +16,18 @@ class AddCard extends Component {
     state = {
         question: '',
         answer: '',
-        isCorrect: ''
     }
 
     submit = (title) => {
-        const { question, answer, isCorrect } = this.state
+        const { question, answer } = this.state
         const { dispatch, navigation } = this.props
 
         if (question && answer) {
-            dispatch(addCard({ question, answer, isCorrect, title }))
-            addCardToDeck(title, { question, answer, isCorrect })
+            dispatch(addCard({ question, answer, title }))
+            addCardToDeck(title, { question, answer, })
             this.setState({
                 question: '',
                 answer: '',
-                isCorrect: ''
             })
 
             navigation.dispatch(NavigationActions.back({ key: null }))
@@ -42,7 +40,7 @@ class AddCard extends Component {
 
     render() {
         const title = this.props.navigation.state.params.entryId
-        const { question, answer, isCorrect } = this.state
+        const { question, answer } = this.state
 
         return (
             <KeyboardAvoidingView behavior="padding" style={styles.container}>
@@ -58,12 +56,6 @@ class AddCard extends Component {
                         style={styles.input}
                         onChangeText={(answer) => this.setState({ answer })}
                         value={answer}
-                    />
-                    <TextInput
-                        placeholder="true / false"
-                        style={styles.input}
-                        onChangeText={(isCorrect) => this.setState({ isCorrect })}
-                        value={isCorrect}
                     />
                     <TouchableOpacity
                         style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple, marginTop: 20 }]}
