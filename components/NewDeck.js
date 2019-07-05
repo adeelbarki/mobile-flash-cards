@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform } from 'react-native'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Platform, KeyboardAvoidingView } from 'react-native'
 import { connect } from 'react-redux'
 import { saveDeckTitle } from '../utils/api'
 import { addDeck } from '../actions'
@@ -31,20 +31,22 @@ class NewDeck extends Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Text style={styles.text}>What is the title of your new Deck?</Text>
-                <TextInput
-                    placeholder="New Deck"
-                    style={styles.input}
-                    value={this.state.title}
-                    onChangeText={(title) => this.setState({ title: title })}
-                />
-                <TouchableOpacity
-                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                    onPress={this.submit}>
-                    <Text style={[styles.submitBtnText, { color: white }]}>Add New Deck</Text>
-                </TouchableOpacity>
-            </View>
+            <KeyboardAvoidingView behavior="padding" style={styles.container}>
+                <View>
+                    <Text style={styles.text}>What is the title of your new Deck?</Text>
+                    <TextInput
+                        placeholder="New Deck"
+                        style={styles.input}
+                        value={this.state.title}
+                        onChangeText={(title) => this.setState({ title: title })}
+                    />
+                    <TouchableOpacity
+                        style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
+                        onPress={this.submit}>
+                        <Text style={[styles.submitBtnText, { color: white }]}>Add New Deck</Text>
+                    </TouchableOpacity>
+                </View>
+            </KeyboardAvoidingView>
         )
     }
 }

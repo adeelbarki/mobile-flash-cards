@@ -28,7 +28,7 @@ const router = {
     navigationOptions: {
       tabBarLabel: 'Dashboard',
       tabBarIcon: ({ tintColor }) =>
-        Platform.OS === 'ios' && <Ionicons name="ios-bookmarks" size={30} color={tintColor} />
+        Platform.OS === 'ios' && <Ionicons name="ios-list-box" size={30} color={tintColor} />
 
     },
   },
