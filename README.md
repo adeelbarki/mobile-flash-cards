@@ -35,7 +35,7 @@ WIFI adpater options. Right Click on your connected network and goto properties.
 
 ## Testing
 
-Results of these tasks can be seen on a android or IOS mobile or an emulator. App works perfectly on both kind of mobiles.  
+Results of these tasks are tested on Google Pixel 3 with latest Android version.  
 
 ## License
 
