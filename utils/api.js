@@ -27,10 +27,6 @@ const initialData = {
     }
 }
 
-export const getInitialData = () => {
-    return initialData
-}
-
 export function saveDeckTitle(title) {
     return AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify({
         [title]: {
@@ -40,12 +36,12 @@ export function saveDeckTitle(title) {
     }))
 }
 
-export function getDecks (deck) {
+export function getDecks () {
     return AsyncStorage.getItem(DECKS_STORAGE_KEY)
         .then(results => {
             if(results === null) {
-                AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.parse(getinitialData))
-                return getInitialData
+                AsyncStorage.setItem(DECKS_STORAGE_KEY, JSON.stringify(initialData))
+                return initialData
             }
             else {
                 return JSON.parse(results)
