@@ -8,7 +8,8 @@ import { white, gray } from '../utils/colors'
 
 class Dashboard extends Component {
     state = {
-        size: new Animated.Value(0)
+        size: new Animated.Value(0),
+        clicked: ''
     }
 
     componentDidMount() {
@@ -18,17 +19,21 @@ class Dashboard extends Component {
 
     handleAnimation = (key) => {
         const size = this.state.size
+        this.setState({
+            clicked: key
+        })
         Animated.timing(
             size,
-                {
-                    toValue: 1,
-                    duration: 500,
-                    easing: Easing.linear,
-                })
+            {
+                toValue: 1,
+                duration: 500,
+                easing: Easing.linear,
+            })
             .start(() => {
                 this.props.navigation.navigate('DeckView', { entryId: key })
                 size.setValue(0)
             })
+            
     }
 
     render() {
@@ -40,25 +45,28 @@ class Dashboard extends Component {
         })
 
         return (
-            <View style={styles.container}>
-                <ScrollView>
-                    {Object.keys(decks).map((key) => {
-                        const { title, questions } = decks[key]
-                        return (
-                            <View key={key} style={styles.row}>
-                                <TouchableOpacity onPress={() => {
-                                    this.handleAnimation(key)
-                                }}
-                                >
-                                    <Animated.Text style={{ fontSize: textSize }}>{title}</Animated.Text>
-                                    <Text style={{ fontSize: 18, color: gray, textAlign: 'center' }}>{questions.length} cards</Text>
-                                </TouchableOpacity>
+            <ScrollView style={styles.container}>
+                {Object.keys(decks).map((key) => {
+                    const { title, questions } = decks[key]
+                    
+                    return (
+                        <TouchableOpacity key={key} onPress={() => {
+                            this.handleAnimation(key)
+                        }}
+                        >
+                            <View style={styles.row}>
+
+                                {this.state.size && this.state.clicked === key
+                                ? <Animated.Text style={{ fontSize: textSize }}>{title}</Animated.Text>
+                                : <Text style={{ fontSize: 40 }}>{title}</Text>
+                                }
+                                <Text style={{ fontSize: 18, color: gray, textAlign: 'center' }}>{questions.length} cards</Text>
                             </View>
-                        )
-                    })
-                    }
-                </ScrollView>
-            </View>
+                        </TouchableOpacity>
+                    )
+                })
+                }
+            </ScrollView>
         )
     }
 }
