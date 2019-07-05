@@ -9,7 +9,6 @@ class QuizView extends Component {
         return {
             title: 'Quiz'
         }
-
     }
 
     state = {
@@ -61,8 +60,8 @@ class QuizView extends Component {
         this.setState({
             activeQuestion: 0,
             showQuestion: false,
-            correct: 0,
-            incorrect: 0,
+            correctAnswer: 0,
+            incorrectAnswer: 0,
         })
     }
 

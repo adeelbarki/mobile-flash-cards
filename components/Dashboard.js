@@ -1,21 +1,44 @@
 
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { View, Text, TouchableOpacity, Platform, StyleSheet, ScrollView } from 'react-native'
-import { getInitialData, getDecks } from '../utils/api'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, ScrollView, Animated, Easing } from 'react-native'
+import { getDecks } from '../utils/api'
 import { receiveDecks } from '../actions'
-import { white, purple, gray } from '../utils/colors'
+import { white, gray } from '../utils/colors'
 
 class Dashboard extends Component {
+    state = {
+        size: new Animated.Value(0)
+    }
 
     componentDidMount() {
         getDecks()
             .then(decks => this.props.receiveAllDecks(decks))
     }
 
+    handleAnimation = (key) => {
+        const size = this.state.size
+        Animated.timing(
+            size,
+                {
+                    toValue: 1,
+                    duration: 500,
+                    easing: Easing.linear,
+                })
+            .start(() => {
+                this.props.navigation.navigate('DeckView', { entryId: key })
+                size.setValue(0)
+            })
+    }
 
     render() {
         const { decks } = this.props
+        const size = this.state.size
+        const textSize = size.interpolate({
+            inputRange: [0, 0.5, 1],
+            outputRange: [40, 20, 40]
+        })
+
         return (
             <View style={styles.container}>
                 <ScrollView>
@@ -23,8 +46,11 @@ class Dashboard extends Component {
                         const { title, questions } = decks[key]
                         return (
                             <View key={key} style={styles.row}>
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate('DeckView', { entryId: key })}>
-                                    <Text style={{ fontSize: 40 }}>{title}</Text>
+                                <TouchableOpacity onPress={() => {
+                                    this.handleAnimation(key)
+                                }}
+                                >
+                                    <Animated.Text style={{ fontSize: textSize }}>{title}</Animated.Text>
                                     <Text style={{ fontSize: 18, color: gray, textAlign: 'center' }}>{questions.length} cards</Text>
                                 </TouchableOpacity>
                             </View>
@@ -36,6 +62,7 @@ class Dashboard extends Component {
         )
     }
 }
+
 
 const styles = StyleSheet.create({
     container: {
@@ -55,6 +82,8 @@ const styles = StyleSheet.create({
         width: 400,
         borderRadius: Platform.OS === 'ios' ? 16 : 2,
         borderColor: gray,
+        borderBottomColor: 'black',
+        borderBottomWidth: 1,
         shadowColor: 'rgba(0,0,0,0.24)',
         shadowOffset: {
             width: 0,

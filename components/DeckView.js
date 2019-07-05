@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, Platform, StyleSheet, Button } from 'react-native'
+import { View, Text, TouchableOpacity, Platform, StyleSheet, Animated } from 'react-native'
 import { connect } from 'react-redux'
-import { getInitialData } from '../utils/api'
 import { white, purple, gray } from '../utils/colors'
 
 
@@ -12,6 +11,7 @@ class DeckView extends Component {
         }
 
     }
+
 
     render() {
         const deck = this.props.navigation.state.params.entryId
@@ -35,6 +35,8 @@ class DeckView extends Component {
         )
     }
 }
+
+
 
 const styles = StyleSheet.create({
     container: {
