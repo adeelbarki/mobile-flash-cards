@@ -45,7 +45,8 @@ class Dashboard extends Component {
         })
 
         return (
-            <ScrollView style={styles.container}>
+            <ScrollView>
+                <View style={styles.container}>
                 {Object.keys(decks).map((key) => {
                     const { title, questions } = decks[key]
                     
@@ -60,12 +61,14 @@ class Dashboard extends Component {
                                 ? <Animated.Text style={{ fontSize: textSize }}>{title}</Animated.Text>
                                 : <Text style={{ fontSize: 40 }}>{title}</Text>
                                 }
-                                <Text style={{ fontSize: 18, color: gray, textAlign: 'center' }}>{questions.length} cards</Text>
+                                <Text style={{ fontSize: 18, color: gray }}>{questions.length} cards</Text>
                             </View>
                         </TouchableOpacity>
                     )
                 })
                 }
+                </View>
+                
             </ScrollView>
         )
     }
@@ -75,41 +78,29 @@ class Dashboard extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignSelf: 'stretch',
-        padding: 10,
+        alignItems: 'center',
+        padding: 20,
         backgroundColor: white,
     },
     row: {
-        flex: 1,
         backgroundColor: white,
-        justifyContent: 'center',
-        alignItems: 'center',
+        borderRadius: Platform.OS === 'ios' ? 16 : 2,
         padding: 20,
         margin: 20,
         height: 200,
-        width: 400,
-        borderRadius: Platform.OS === 'ios' ? 16 : 2,
-        borderColor: gray,
-        borderBottomColor: 'black',
+        borderColor: 'black',
+        borderBottomColor: 'gray',
         borderBottomWidth: 1,
-        shadowColor: 'rgba(0,0,0,0.24)',
-        shadowOffset: {
-            width: 0,
-            height: 3,
-        },
-        shadowRadius: 4,
-        shadowOpacity: 0.8,
-
-    },
-    item: {
-        borderRadius: Platform.OS === 'ios' ? 16 : 2,
+        width: 500,
+        justifyContent: 'center',
+        alignItems: 'center',
         shadowRadius: 3,
         shadowOpacity: 0.8,
         shadowColor: 'rgba(0,0,0,0.24)',
         shadowOffset: {
             width: 0,
             height: 3,
-        },
+        }
     },
 })
 

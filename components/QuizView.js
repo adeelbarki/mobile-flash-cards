@@ -67,29 +67,28 @@ class QuizView extends Component {
         const deck = navigation.state.params.entryId
         const currentQuestion = activeQuestion + 1
 
-        const results = <View style={styles.container}>
-            <View style={styles.row}>
-                {this.state.correctAnswer > this.state.incorrectAnswer
-                    ? <Text style={{ fontSize: 70 }}>😊</Text>
-                    : <Text style={{ fontSize: 70 }}>😒</Text>
-                }
-                <Text style={{ fontSize: 40, textAlign: 'center' }}>You got {this.state.correctAnswer} out of {decks[deck].questions.length} correct </Text>
-                <TouchableOpacity
-                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
-                    onPress={this.restartQuiz}>
-                    <Text style={[styles.submitBtnText, { color: white }]}>Restart Quiz</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
-                    onPress={() => this.props.navigation.navigate('DeckView')}>
-                    <Text style={[styles.submitBtnText, { color: gray }]}>Back to Deck</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-
         if (activeQuestion === decks[deck].questions.length) {
             return (
-                results
+                <View style={styles.container}>
+                    <View style={styles.row}>
+                        {this.state.correctAnswer > this.state.incorrectAnswer
+                            ? <Text style={{ fontSize: 70 }}>😊</Text>
+                            : <Text style={{ fontSize: 70 }}>😒</Text>
+                        }
+                        <Text style={{ fontSize: 40, textAlign: 'center' }}>You got {this.state.correctAnswer} out of {decks[deck].questions.length} correct </Text>
+                        <TouchableOpacity
+                            style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: purple }]}
+                            onPress={this.restartQuiz}>
+                            <Text style={[styles.submitBtnText, { color: white }]}>Restart Quiz</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={[Platform.OS === 'ios' ? styles.iosSubmitBtn : styles.androidSubmitBtn, { backgroundColor: white }]}
+                            onPress={() => navigation.navigate('DeckView', { entryId: deck })}>
+                            <Text style={[styles.submitBtnText, { color: gray }]}>Back to Deck</Text>
+                        </TouchableOpacity>
+
+                    </View>
+                </View>
             )
         }
 
@@ -128,9 +127,8 @@ class QuizView extends Component {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        alignItems: 'center',
         padding: 20,
-        justifyContent: 'center',
-        alignSelf: 'stretch',
         backgroundColor: white,
     },
     row: {
@@ -151,7 +149,6 @@ const styles = StyleSheet.create({
         },
         shadowRadius: 4,
         shadowOpacity: 0.8,
-
     },
     text: {
         padding: 10,
@@ -172,7 +169,6 @@ const styles = StyleSheet.create({
         paddingHorizontal: 30,
         paddingVertical: 5,
         borderRadius: 30,
-        //borderColor: gray,
         height: 50,
         width: 250,
         alignSelf: 'center',
