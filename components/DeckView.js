@@ -47,10 +47,6 @@ const styles = StyleSheet.create({
     item: {
         backgroundColor: white,
         borderRadius: Platform.OS === 'ios' ? 16 : 2,
-        padding: 20,
-        margin: 20,
-        height: 200,
-        width: 400,
         justifyContent: 'center',
         alignItems: 'center',
         shadowRadius: 3,
